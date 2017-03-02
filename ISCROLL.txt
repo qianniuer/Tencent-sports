@@ -1,0 +1,30 @@
+1、外层容器的宽高的是固定的，内层存放内容的容器的高度，需要比外层容器的高度的高，这样才有必要做局部滚动
+<div class='container'>
+   <ul class='wrapper'>
+         <!--content-->
+   </ul>
+</div>
+2、ISCROLL实现局部滚动原理：
+1)滚动条的高度以及滚动一次运动多远都是基于:
+  容器的高度和内容的高度 计算出来的，以后只要一个容器高度发生改变，都需要重新的进行计算
+  ISCROLL监听了最外层容器的resize事件，当外层容器大小改变的时候，会帮助我们重新的计算滚动条的高度；
+  但是如果内容的高度发生改变，他没有自行处理，需要我们手动进行处理：exampleIS.refresh();
+
+2)使用css3变形处理(translate)：
+  在滚动的过程中，控制wrapper的translate值，一直在改变，才能实现滚动效果(当前默认操作)
+
+3)使用传统的JS动画：
+  在滚动过程中，控制wrapper的top值发生改变，这样需要把container设置相对定位，给wrapper设置绝对定位，
+  这样才能实现wrapper在container上下来回的滚动效果
+
+PS:如果我们需要展示滚动条，ISCROLL会在容器中追加一个div：
+<div class="iScrollVerticalScrollbar iScrollLoneScrollbar" style="position: absolute;..."></div>
+ <div class="iScrollIndicator"...position: absolute; .."></div>
+  想让滚动条在容器中显示，需要给容器增加：position: relative
+  需要给滚动条改变样式(iScrollIndicator)，增加样式即可
+
+
+3、scrollTo(x,y,duration) / scrollToElement(ele,duration) 在scroll区域中滚动到具体的某个位置
+
+
+
